@@ -159,7 +159,7 @@ class TogglReportsApi
         try {
             $response = $this->client->put($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
+            return $this->checkResponse($response, !($options['getFullResponse'] ?? false));
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
