@@ -113,7 +113,7 @@ class TogglReportsApi
         try {
             $response = $this->client->get($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
+            return $this->checkResponse($response, !($options['getFullResponse'] ?? false));
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -136,7 +136,7 @@ class TogglReportsApi
         try {
             $response = $this->client->post($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
+            return $this->checkResponse($response, !($options['getFullResponse'] ?? false));
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -182,7 +182,7 @@ class TogglReportsApi
         try {
             $response = $this->client->delete($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response,$options['getFullResponse'] ?? false);
+            return $this->checkResponse($response,!($options['getFullResponse'] ?? false));
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
