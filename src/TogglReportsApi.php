@@ -52,11 +52,12 @@ class TogglReportsApi
      *
      * @param string $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    public function getProjectReport($query)
+    public function getProjectReport($query, $options = array())
     {
-        return $this->get('project', $query);
+        return $this->get('project', $query, $options);
     }
 
     /**
@@ -64,11 +65,12 @@ class TogglReportsApi
      *
      * @param string $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    public function getSummaryReport($query)
+    public function getSummaryReport($query, $options = array())
     {
-        return $this->get('summary', $query);
+        return $this->get('summary', $query, $options);
     }
 
     /**
@@ -76,11 +78,12 @@ class TogglReportsApi
      *
      * @param string $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    public function getDetailsReport($query)
+    public function getDetailsReport($query, $options = array())
     {
-        return $this->get('details', $query);
+        return $this->get('details', $query, $options);
     }
 
     /**
@@ -88,11 +91,12 @@ class TogglReportsApi
      *
      * @param string $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    public function getWeeklyReport($query)
+    public function getWeeklyReport($query, $options = array())
     {
-        return $this->get('weekly', $query);
+        return $this->get('weekly', $query, $options);
     }
 
     /**
@@ -101,14 +105,15 @@ class TogglReportsApi
      * @param string $endpoint
      * @param array $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    private function GET($endpoint, $query = array())
+    private function GET($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->client->get($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response);
+            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -123,14 +128,15 @@ class TogglReportsApi
      * @param string $endpoint
      * @param array $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    private function POST($endpoint, $query = array())
+    private function POST($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->client->post($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response);
+            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -145,14 +151,15 @@ class TogglReportsApi
      * @param string $endpoint
      * @param array $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    private function PUT($endpoint, $query = array())
+    private function PUT($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->client->put($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response);
+            return $this->checkResponse($response, $options['getFullResponse'] ?? false);
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -167,14 +174,15 @@ class TogglReportsApi
      * @param string $endpoint
      * @param array $query
      *
+     * @param array $options
      * @return bool|mixed|object
      */
-    private function DELETE($endpoint, $query = array())
+    private function DELETE($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->client->delete($endpoint, ['query' => $query]);
 
-            return $this->checkResponse($response);
+            return $this->checkResponse($response,$options['getFullResponse'] ?? false);
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
@@ -187,14 +195,15 @@ class TogglReportsApi
      * Helper for checking http response.
      *
      * @param \Psr\Http\Message\ResponseInterface $response
+     * @param bool $returnDataOnly
      *
      * @return bool|mixed
      */
-    private function checkResponse($response)
+    private function checkResponse($response, $returnDataOnly = true)
     {
-        if ($response->getStatusCode() == 200) {
-            $data = json_decode($response->getBody());
-            if (is_object($data) && isset($data->data)) {
+        if ($response->getStatusCode() === 200) {
+            $data = json_decode($response->getBody(), false);
+            if ($returnDataOnly && $this->hasData($data)) {
                 $data = $data->data;
             }
 
@@ -202,5 +211,14 @@ class TogglReportsApi
         }
 
         return false;
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
+    private function hasData($data)
+    {
+        return (isset($data->data) && is_object($data));
     }
 }
