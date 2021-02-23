@@ -1,5 +1,5 @@
 {
-	"name": "morningtrain/toggl-api",
+	"name": "tng/toggl-api",
     "type": "library",
     "description": "A complete native php wrapper for the Toggl API",
     "keywords": ["toggl","api", "php"],
