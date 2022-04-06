@@ -50,7 +50,7 @@ class TogglReportsApi
     /**
      * Get project report.
      *
-     * @param string $query
+     * @param array $query
      *
      * @param array $options
      * @return bool|mixed|object
@@ -63,7 +63,7 @@ class TogglReportsApi
     /**
      * Get summary report.
      *
-     * @param string $query
+     * @param array $query
      *
      * @param array $options
      * @return bool|mixed|object
@@ -76,7 +76,7 @@ class TogglReportsApi
     /**
      * Get details report.
      *
-     * @param string $query
+     * @param array $query
      *
      * @param array $options
      * @return bool|mixed|object
@@ -89,7 +89,7 @@ class TogglReportsApi
     /**
      * Get weekly report.
      *
-     * @param string $query
+     * @param array $query
      *
      * @param array $options
      * @return bool|mixed|object
