@@ -1011,7 +1011,7 @@ class TogglApi
         } catch (ClientException $e) {
             return (object) [
                 'success' => false,
-                'message' => $e->getResponse()->getBody()->getContents(),
+                'message' => $e->getMessage() . ' Response: ' . $e->getResponse()->getBody()->getContents(),
             ];
         }
     }
