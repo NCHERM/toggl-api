@@ -355,7 +355,7 @@ class TogglApi
      */
     public function createProject($project)
     {
-        return $this->POST("workspaces/{$this->workspaceId}/projects", ['project' => $project]);
+        return $this->POST("workspaces/{$this->workspaceId}/projects", $project);
     }
 
     /**
