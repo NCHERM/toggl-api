@@ -19,8 +19,9 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "^7.2",
-      "ext-json": "*"
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^6.3|^7.0",
+        "ext-json": "*"
     },
 	"require-dev": {
 		"squizlabs/php_codesniffer": "2.*",
