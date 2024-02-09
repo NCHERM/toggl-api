@@ -71,7 +71,7 @@ class TogglApi
      */
     public function createClient($client)
     {
-        return $this->POST("workspaces/{$this->workspaceId}/clients", ['client' => $client]);
+        return $this->POST("workspaces/{$this->workspaceId}/clients", $client);
     }
 
     /**
