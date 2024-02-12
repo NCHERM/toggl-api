@@ -203,7 +203,7 @@ class TogglApi
      */
     public function createProjectUsers($user)
     {
-        return $this->POST('project_users', ['project_user' => $user]);
+        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user]);
     }
 
     /**
@@ -216,7 +216,7 @@ class TogglApi
      */
     public function updateProjectUser($projectUserId, $user)
     {
-        return $this->PUT('project_users/'.$projectUserId, ['project_user' => $user]);
+        return $this->PUT("/workspaces/{$this->workspaceId}/project_users/{$projectUserId}", $user);
     }
 
     /**
@@ -404,7 +404,7 @@ class TogglApi
      */
     public function getProjectUserRelations($projectId)
     {
-        return $this->GET('projects/'.$projectId.'/project_users');
+        return $this->GET("/workspaces/{$this->workspaceId}/project_users?project_ids={$projectId}");
     }
 
     /**
