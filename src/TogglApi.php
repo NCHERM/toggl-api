@@ -404,7 +404,7 @@ class TogglApi
      */
     public function getProjectUserRelations($projectId)
     {
-        return $this->GET("/workspaces/{$this->workspaceId}/project_users?project_ids={$projectId}");
+        return $this->GET("/workspaces/{$this->workspaceId}/project_users", ['project_ids'=>$projectId]);
     }
 
     /**
