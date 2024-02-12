@@ -203,7 +203,7 @@ class TogglApi
      */
     public function createProjectUsers($user)
     {
-        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user]);
+        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
     }
 
     /**
