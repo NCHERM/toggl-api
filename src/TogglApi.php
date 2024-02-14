@@ -191,7 +191,7 @@ class TogglApi
      */
     public function createProjectUser($user)
     {
-        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
+        return $this->POST("workspaces/{$this->workspaceId}/project_users", $user);
     }
 
     /**
@@ -205,7 +205,7 @@ class TogglApi
     {
         $userList = [];
         foreach($users as $user) {
-            $userList[] = $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
+            $userList[] = $this->POST("workspaces/{$this->workspaceId}/project_users", $user);
         }
         return $userList;
     }
@@ -220,7 +220,7 @@ class TogglApi
      */
     public function updateProjectUser($projectUserId, $user)
     {
-        return $this->PUT("/workspaces/{$this->workspaceId}/project_users/{$projectUserId}", $user);
+        return $this->PUT("workspaces/{$this->workspaceId}/project_users/{$projectUserId}", $user);
     }
 
     /**
