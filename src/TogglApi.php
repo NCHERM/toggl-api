@@ -191,7 +191,7 @@ class TogglApi
      */
     public function createProjectUser($user)
     {
-        return $this->POST('project_users', ['project_user' => $user]);
+        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
     }
 
     /**
@@ -201,9 +201,13 @@ class TogglApi
      *
      * @return bool|mixed|object
      */
-    public function createProjectUsers($user)
+    public function createProjectUsers($users)
     {
-        return $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
+        $userList = [];
+        foreach($users as $user) {
+            $userList[] = $this->POST("/workspaces/{$this->workspaceId}/project_users", $user);
+        }
+        return $userList;
     }
 
     /**
