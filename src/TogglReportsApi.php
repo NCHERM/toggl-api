@@ -23,35 +23,18 @@ class TogglReportsApi
      */
     protected $v2Client;
 
-    protected ?Client $v3Client = null;
-
     /**
      * TogglReportsApi constructor.
      *
      * @param string $apiToken
      */
-    public function __construct(
-        string $apiToken,
-        ?string $workspaceID = null
-    ) {
+    public function __construct($apiToken)
+    {
         $this->apiToken = $apiToken;
         $this->v2Client = new Client([
             'base_uri' => 'https://api.track.toggl.com/reports/api/v2/',
             'auth' => [$this->apiToken, 'api_token'],
         ]);
-
-        if($workspaceID) {
-            $this->v3Client = new Client( [
-                'base_uri' => 'https://api.track.toggl.com/reports/api/v3/workspace/' . $workspaceID,
-                'auth'         => [ $this->apiToken, 'api_token' ],
-            ]);
-        }
-    }
-
-    public function searchTimeEntries(array $query, array $options = [])
-    {
-        $options['version'] = 3;
-        return $this->POST('search/time_entries', $query, $options);
 
     }
 
@@ -126,7 +109,7 @@ class TogglReportsApi
      * @param array $options
      * @return bool|mixed|object
      */
-    private function GET($endpoint, $query = array(), $options = array())
+    protected function GET($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->v2Client->get($endpoint, [ 'query' => $query]);
@@ -149,14 +132,10 @@ class TogglReportsApi
      * @param array $options
      * @return bool|mixed|object
      */
-    private function POST($endpoint, $query = array(), $options = array())
+    protected function POST($endpoint, $query = array(), $options = array())
     {
-        $client = ($options['version'] ?? 2) === 3 ? $this->v3Client : $this->v2Client;
-        if(!$client){
-            return false;
-        }
         try {
-            $response = $client->post($endpoint, [ 'query' => $query]);
+            $response = $this->v2Client->post($endpoint, [ 'query' => $query]);
 
             return $this->checkResponse($response, !($options['getFullResponse'] ?? false));
         } catch (ClientException $e) {
@@ -176,7 +155,7 @@ class TogglReportsApi
      * @param array $options
      * @return bool|mixed|object
      */
-    private function PUT($endpoint, $query = array(), $options = array())
+    protected function PUT($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->v2Client->put($endpoint, [ 'query' => $query]);
@@ -199,7 +178,7 @@ class TogglReportsApi
      * @param array $options
      * @return bool|mixed|object
      */
-    private function DELETE($endpoint, $query = array(), $options = array())
+    protected function DELETE($endpoint, $query = array(), $options = array())
     {
         try {
             $response = $this->v2Client->delete($endpoint, [ 'query' => $query]);
@@ -221,7 +200,7 @@ class TogglReportsApi
      *
      * @return bool|mixed
      */
-    private function checkResponse($response, $returnDataOnly = true)
+    protected function checkResponse($response, $returnDataOnly = true)
     {
         if ($response->getStatusCode() === 200) {
             $data = json_decode($response->getBody(), false);
@@ -239,7 +218,7 @@ class TogglReportsApi
      * @param $data
      * @return bool
      */
-    private function hasData($data)
+    protected function hasData($data)
     {
         return (isset($data->data) && is_object($data));
     }
