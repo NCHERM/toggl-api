@@ -619,9 +619,9 @@ class TogglApi
      *
      * @return bool|mixed|object
      */
-    public function getWorkspaceClients($wid)
+    public function getWorkspaceClients($wid, $query = [])
     {
-        return $this->GET('workspaces/'.$wid.'/clients');
+        return $this->GET('workspaces/'.$wid.'/clients', $query);
     }
 
     /**
