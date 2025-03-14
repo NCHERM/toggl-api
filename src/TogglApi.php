@@ -835,9 +835,7 @@ class TogglApi
      */
     public function updateTask($projectId, $taskId, $task)
     {
-        return $this->PUT("workspaces/{$this->workspaceId}/projects/{$projectId}/tasks/{$taskId}", [
-            'task' => $task,
-        ]);
+        return $this->PUT("workspaces/{$this->workspaceId}/projects/{$projectId}/tasks/{$taskId}", $task);
     }
 
     /**
