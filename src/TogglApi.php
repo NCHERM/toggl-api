@@ -432,7 +432,7 @@ class TogglApi
      */
     public function getProjectTasks($projectId)
     {
-        return $this->GET('projects/'.$projectId.'/tasks');
+        return $this->GET( "workspaces/{$this->workspaceId}/projects/{$projectId}/tasks");
     }
 
     /**
