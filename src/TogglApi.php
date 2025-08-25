@@ -372,7 +372,7 @@ class TogglApi
      */
     public function updateProject($projectId, $project)
     {
-        return $this->PUT("workspaces/{$this->workspaceId}/projects/{$projectId}", ['project' => $project]);
+        return $this->PUT("workspaces/{$this->workspaceId}/projects/{$projectId}", $project);
     }
 
     /**
