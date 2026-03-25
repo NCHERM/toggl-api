@@ -942,7 +942,7 @@ class TogglApi
      */
     public function getTimeEntry($timeEntryId)
     {
-        return $this->GET('time_entries/me/'.$timeEntryId);
+        return $this->GET('me/time_entries/'.$timeEntryId);
     }
 
     /**
